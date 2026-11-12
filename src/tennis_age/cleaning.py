@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def _parse_matches(js_text):
-    match = re.search(r"\bmorematchmx\s*=\s*", js_text)
+    match = re.search(r"\b(?:morematchmx|matchmx)\s*=\s*", js_text)
     if not match:
         raise ValueError("Could not find career match data.")
     try:

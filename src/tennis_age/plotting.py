@@ -22,12 +22,12 @@ def plot_player_matches(df):
     for result, label in [("W", "Won"), ("L", "Lost")]:
         matches = df[df["result"] == result]
         if not matches.empty:
-            ax.scatter(matches["player_age"], matches["age_difference"],
-                       color=colors[result], s=18, alpha=0.7, label=label)
+            ax.scatter(matches["player_age"], -matches["age_difference"],
+					   color=colors[result], s=18, alpha=0.7, label=label)
 
     ax.axhline(0, color="gray", linestyle="--", linewidth=1)
     ax.set_xlabel("Player Age (years)")
-    ax.set_ylabel("Opponent Age - Player Age (years)")
+    ax.set_ylabel("Player Age - Opponent Age (years)")
     ax.set_title("Age Differences in Career Matches")
     ax.legend()
     fig.tight_layout()

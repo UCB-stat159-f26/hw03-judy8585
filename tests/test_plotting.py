@@ -59,3 +59,17 @@ def test_invalid_results(sample_matches):
     sample_matches.loc[0, "result"] = "X"
     with pytest.raises(ValueError, match="Results must be W or L"):
         plot_player_matches(sample_matches)
+
+
+def test_age_difference_direction(sample_matches):
+    fig = plot_player_matches(sample_matches)
+    ax = fig.axes[0]
+
+    for collection, result in zip(ax.collections, ["W", "L"]):
+        expected = sample_matches.loc[
+            sample_matches["result"] == result, "age_difference"
+        ]
+        actual = collection.get_offsets()[:, 1]
+        assert list(actual) == pytest.approx((-expected).tolist())
+
+    plt.close(fig)

@@ -80,3 +80,31 @@ def test_missing_career_data(monkeypatch):
 
     with pytest.raises(ValueError, match="No career match data"):
         data.get_player_data("Serena Williams")
+
+
+
+def test_prefers_complete_career(monkeypatch):
+    old = _career("L", "19790606", "20010910")
+    recent = _career("W", "19951004", "20241119")
+
+    def get_rows(js):
+        return json.loads(js.split("=", 1)[1].strip().rstrip(";"))
+
+    rows = get_rows(old) + get_rows(recent)
+    complete = "var matchmx = " + json.dumps(rows) + ";"
+
+    def fake_download(url):
+        if url.endswith("/RafaelNadal.js"):
+            return "var dob=19860603;"
+        if url.endswith("/RafaelNadalCareer.js"):
+            return old
+        if "player-classic.cgi?p=RafaelNadal" in url:
+            return complete
+        return None
+
+    monkeypatch.setattr(data, "_download_text", fake_download)
+    df = data.get_player_data("Rafael Nadal")
+
+    assert len(df) == 2
+    assert df["date"].max().strftime("%Y-%m-%d") == "2024-11-19"
+    assert df["player_age"].max() == pytest.approx(38.46, abs=0.02)

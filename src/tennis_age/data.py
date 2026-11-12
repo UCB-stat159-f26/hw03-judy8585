@@ -51,11 +51,32 @@ def _get_birth_date(slug):
     return birth_date
 
 
+def _get_complete_matches(slug, birth_date, career):
+    for page in ("player-classic.cgi", "wplayer-classic.cgi"):
+        url = f"{BASE_URL}/cgi-bin/{page}?p={slug}"
+        try:
+            html = _download_text(url)
+            if not html or not re.search(r"\bmatchmx\s*=", html):
+                continue
+            candidate = clean_career_matches(html, birth_date)
+        except (ConnectionError, ValueError):
+            continue
+
+        columns = ["date", "opponent", "result"]
+        shared = career[columns].merge(candidate[columns], on=columns)
+        if len(candidate) > len(career) and len(shared) >= min(2, len(career)):
+            return candidate
+    return career
+
+
 def get_player_data(name):
     slug = _player_slug(name)
     birth_date = _get_birth_date(slug)
     url = f"{BASE_URL}/jsmatches/{slug}Career.js"
     js_text = _download_text(url)
+
     if not js_text or not re.search(r"\bmorematchmx\s*=", js_text):
         raise ValueError(f"No career match data found for '{name}'.")
-    return clean_career_matches(js_text, birth_date)
+
+    career = clean_career_matches(js_text, birth_date)
+    return _get_complete_matches(slug, birth_date, career)
