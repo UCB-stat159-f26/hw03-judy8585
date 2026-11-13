@@ -15,7 +15,3 @@ dist/
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
-
-# Local plot previews
-serena_hw3.png
-nadal_hw3.png
