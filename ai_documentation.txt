@@ -1,0 +1,19 @@
+AI Tool:
+ChatGPT (OpenAI, GPT-5.6)
+Use during: 11/11-11/13
+
+While working on the data cleaning functions, I noticed that female and male players' career files use different formats. Female players' records contain their opponents' birth dates, while male players' records already contain their opponents' ages. I asked ChatGPT how to handle these differences in the same cleaning function. It helped me write and test the age calculations using the sample JS data provided in the homework instructions.
+Some example prompts:
+- "Why do Serena Williams and Rafael Nadal have different data formats?"
+- "How can I calculate the opponent's age from their birth date?"
+- "How can I test the cleaning function using the example JS data?"
+
+One challenge was getting Rafael Nadal's complete career data. At first, my function only returned 1,096 matches, and the scatter plot stopped when Nadal was about 30 years old. I asked ChatGPT why the data ended in 2016 even though Nadal continued playing afterward. We investigated the Tennis Abstract files and found that his player profile contained additional match records. After updating the data retrieval function, I was able to get 1,431 matches, with records extending to 2024. I regenerated the scatter plot and checked that the x-axis extended to about age 38.
+Some example prompts:
+- "Why does Rafael Nadal's career data only have 1,096 matches?"
+- "How can I check whether Tennis Abstract has more complete match data?"
+- "How can I update my function to include the missing matches?"
+
+For automated testing,  I also asked ChatGPT for help when pytest reported errors. For example, I accidentally placed a plotting test in `test_data.py`, which caused a missing fixture error. ChatGPT helped me identify the problem. So I move the test into test_plotting.py and all 22 tests passed.
+Example prompt:
+- "Why does pytest say fixture `sample_matches` is not found?"
