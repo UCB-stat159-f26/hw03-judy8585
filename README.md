@@ -28,6 +28,7 @@ hw03-judy8585/
 ├── pyproject.toml
 ├── .gitignore
 ├── instructions.md
+├── ai_documentation.txt
 └── README.md
 ```
 
@@ -57,6 +58,7 @@ The tests use mock data instead of making requests to the live website.
 - `.gitignore` excludes temporary files, Python cache files, and Jupyter checkpoints.
 - `instructions.md` contains the homework instructions.
 - `README.md` describes the package and how to use it.
+- `ai_documentation.txt` documents how AI was used during the assignment.
 
 ## How to Reproduce
 
@@ -170,8 +172,6 @@ Female and male player records use different formats for opponent ages. Some rec
 
 Through this assignment, I learned how to turn my HW2 code into a reusable Python package. I learned how to organize my code into different functions and files so that other people can use the package for different tennis players.
 
-One challenge was working with the different data formats from Tennis Abstract. Female and male player records store opponent age information differently, so I had to handle both cases when cleaning the data. I also found that the original career data I downloaded for Rafael Nadal did not include all of his matches. I had to check other data sources and update my function to retrieve more complete records. This taught me that getting the correct data is just as important as creating the visualization.
+One challenge was working with the different data formats from Tennis Abstract. Female and male player records store opponent age information differently, so I had to handle both cases when cleaning the data. I also found that the original career data I downloaded for Rafael Nadal did not include all of his matches. I had to check other data sources and update my function to retrieve more complete records. This taught me that getting the correct data is just as important as creating the visualization. Another important thing I learned was automated testing. At first, I mainly checked whether my code produced the expected results. Through this assignment, I learned how to write tests using mock data and check different cases, including invalid inputs and age calculations. The tests also helped me identify problems with the plotting function. I now understand why automated tests are useful for making code more reliable.
 
-Another important thing I learned was automated testing. At first, I mainly checked whether my code produced the expected results. Through this assignment, I learned how to write tests using mock data and check different cases, including invalid inputs and age calculations. The tests also helped me identify problems with the plotting function. I now understand why automated tests are useful for making code more reliable.
-
-Finally, I gained more experience with Python package installation and Git. Testing the package directly from GitHub helped me understand how other people would install and use my code. Overall, this assignment helped me learn how to make my code more organized, reusable, and easier to test.
+Finally, I gained more experience with Python package installation and Git. Testing the package directly from GitHub helped me understand how other people would install and use my code.
